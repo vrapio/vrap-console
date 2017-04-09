@@ -1,0 +1,25 @@
+#%RAML 1.0
+
+title: VRAP introspection API
+baseUri: http://localhost:5050/introspection
+
+mediaType:
+    - application/json
+
+/resources:
+    get:
+        queryParameters:
+            query: string
+        responses:
+            200:
+                body:
+                    example: |
+                            [
+                                { "uri": "/{projectKey}", "name": "Projects" },
+                                { "uri": "/{projectKey}/carts}", "name": "Carts" },
+                                { "uri": "/{projectKey}/carts/{ID}", "name": "Carts by ID" },
+                                { "uri": "/{projectKey}/carts/{KEY}", "name": "Carts by KEY" },
+                                { "uri": "/{projectKey}/categories", "name": "Categories" },
+                                { "uri": "/{projectKey}/categories/{ID}", "name": "Categories by ID" },
+                                { "uri": "/{projectKey}/categories/{KEY]", "name": "Categories by KEY" }
+                            ]
