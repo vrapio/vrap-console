@@ -45,8 +45,8 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     proxy: {
-        '/resources': {
-            target: 'http://localhost:5050/api',
+        '/console': {
+            target: 'http://localhost:5050',
             secure: false
         }
     }
