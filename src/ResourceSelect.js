@@ -2,9 +2,9 @@ import $ from 'jquery'
 import Bloodhound from 'typeahead'
 
 export default {
-    mounted: () => {
-        var resources = new Bloodhound({
-          datumTokenizer: Bloodhound.tokenizers.obj.whitespace(["uri", "name"]),
+    mounted: function () {
+        const resources = new Bloodhound({
+          datumTokenizer: Bloodhound.tokenizers.obj.whitespace(['uri', 'name']),
           queryTokenizer: query => query.split('/'),
           remote: {
             url: '/console/suggestions?query=%QUERY',
@@ -23,5 +23,6 @@ export default {
           display: 'name',
           source: resources
         });
+        resourcesTypeahead.on('typeahead:select', (ev, resource) => this.$emit('select', resource));
     }
 }
