@@ -15,5 +15,13 @@ export default {
         onSelect: function (resource) {
             this.resource = resource;
         }
+    },
+    computed: {
+        headers: function () {
+            return [
+                { name: 'Accept', type: { type: 'enum', values: [ 'application/json', 'application/xml'] }},
+                { name: 'X-Vrap-Mode', type: { type: 'enum', values: [ 'proxy', 'example'] } }
+            ];
+        }
     }
 }

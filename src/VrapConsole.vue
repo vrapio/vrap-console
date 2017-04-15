@@ -9,6 +9,7 @@
             </div>
             <div class="panel-body">
                 <type-declarations title="Query Parameters" :typeDeclarations="method.queryParams"></type-declarations>
+                <type-declarations title="Headers" :typeDeclarations="headers"></type-declarations>
             </div>
             <div class="panel-footer">
                 <button type="button" class="btn btn-success text-capitalize">{{method.method}}</button>
