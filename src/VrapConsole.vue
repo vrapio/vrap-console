@@ -8,16 +8,7 @@
                 <div class="panel-body">
                     <template v-if="method.queryParams">
                         <div><strong>Query Parameters:</strong></div>
-                        <div class="form-inline">
-                            <div class="form-group">
-                                <template v-for="queryParam in method.queryParams">
-                                    <label :for="queryParam.name">{{queryParam.name}}:</label>
-                                    <div :id="queryParam.name" class="input-group">
-                                        <input class="form-control" type="text" :placeholder="queryParam.example">
-                                    </div>
-                                </template>
-                            </div>
-                        </div>
+                        <type-declarations :typeDeclarations="method.queryParams"></type-declarations>
                     </template>
                 </div>
             </template>
