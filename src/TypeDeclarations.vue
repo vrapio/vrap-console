@@ -1,14 +1,14 @@
 <template>
-    <div v-if="typeDeclarations" class="form-inline">
-        <p><strong>{{title}}</strong></p>
-        <hr>
-        <div class="form-group">
-            <template v-for="typeDeclaration in typeDeclarations">
-                <label :for="typeDeclaration.name">{{typeDeclaration.name}}:</label>
+    <div>
+        <h4>{{title}}</h4>
+        <div v-if="typeDeclarations" class="form">
+            <div v-for="typeDeclaration in typeDeclarations" class="form-group">
+                <label :for="typeDeclaration.name">{{typeDeclaration.name}}</label>
                 <div :id="typeDeclaration.name" class="input-group">
-                    <input class="form-control" type="text" :placeholder="typeDeclaration.example">
+                    <input class="form-control pull-left" type="text" :placeholder="typeDeclaration.example">
+                    <span v-if="typeDeclaration.example" class="input-group-addon glyphicon glyphicon-paste" id="basic-addon1"></span>
                 </div>
-            </template>
+            </div>
         </div>
     </div>
 </template>
