@@ -5,8 +5,8 @@ import './assets/vrap-console.css'
 export default {
     mounted: function () {
         const resources = new Bloodhound({
-          datumTokenizer: Bloodhound.tokenizers.obj.whitespace(['uri', 'name']),
-          queryTokenizer: query => query.split('/'),
+          datumTokenizer: Bloodhound.tokenizers.whitespace,
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
           remote: {
             url: '/console/suggestions?query=%QUERY',
             wildcard: '%QUERY'
@@ -21,7 +21,7 @@ export default {
         };
         resourcesTypeahead.typeahead(options, {
           name: 'resources',
-          display: 'name',
+          display: 'label',
           source: resources
         });
         resourcesTypeahead.on('typeahead:select', (ev, resource) => this.$emit('select', resource));
