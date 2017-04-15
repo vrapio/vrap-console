@@ -1,16 +1,16 @@
-import ResourceSelect from './ResourceSelect.vue'
 import ResourcePanel from './ResourcePanel.vue'
+import Navbar from './Navbar.vue'
 
 export default {
     components: {
-        'resource-select': ResourceSelect,
+        'navbar': Navbar,
         'resource-panel': ResourcePanel
     },
     data: function() {
         return { resource: {} };
     },
     methods: {
-        onResourceSelect: function (resource) {
+        onSelect: function (resource) {
             this.resource = resource;
         }
     }

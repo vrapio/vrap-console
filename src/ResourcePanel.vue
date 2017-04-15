@@ -1,5 +1,5 @@
 <template>
-    <div id="resource-panel" class="panel panel-default">
+    <div v-if="resource.name" id="resource-panel" class="panel panel-default">
         <div class="panel-heading">{{ resource.name }}</div>
         <div class="panel-body">
             <p>{{resource.description}}</p>
