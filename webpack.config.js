@@ -1,5 +1,6 @@
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: './src/main.js',
@@ -25,7 +26,14 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif|svg|css})$/,
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
+      },
+      {
+        test: /\.(png|jpg|gif|svg|eot|woff|woff2|ttf)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
@@ -33,6 +41,10 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new ExtractTextPlugin("styles.css"),
+    new webpack.ProvidePlugin({$: "jquery", jQuery: "jquery", 'window.jQuery': "jquery"})
+  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'

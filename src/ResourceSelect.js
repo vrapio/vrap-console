@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import Bloodhound from 'typeahead'
+import './assets/vrap-console.css'
 
 export default {
     mounted: function () {
