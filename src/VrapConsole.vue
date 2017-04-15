@@ -6,10 +6,7 @@
             <template v-for="method in resource.methods">
                 <div class="panel-heading"><span class="label label-default">{{ method.method }}</span></div>
                 <div class="panel-body">
-                    <template v-if="method.queryParams">
-                        <div><strong>Query Parameters:</strong></div>
-                        <type-declarations :typeDeclarations="method.queryParams"></type-declarations>
-                    </template>
+                    <type-declarations v-if="method.queryParams" title="Query Parameters" :typeDeclarations="method.queryParams"></type-declarations>
                 </div>
             </template>
         </div>

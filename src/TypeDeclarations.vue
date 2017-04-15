@@ -1,5 +1,7 @@
 <template>
     <div v-if="typeDeclarations" class="form-inline">
+        <p><strong>{{title}}</strong></p>
+        <hr>
         <div class="form-group">
             <template v-for="typeDeclaration in typeDeclarations">
                 <label :for="typeDeclaration.name">{{typeDeclaration.name}}:</label>
