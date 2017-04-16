@@ -66,7 +66,7 @@ export default {
                 data: this.queryParams,
                 headers: this.headers
             };
-            const uri = `api/${this.path}`;
+            const uri = `api${this.path}`;
             $.ajax(uri, settings)
                 .always(() => this.loading = false)
                 .done(this.done)

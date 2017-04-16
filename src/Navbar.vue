@@ -11,10 +11,10 @@
                 </button>
                 <a class="navbar-brand" href="http://vrap.io">vrap.io</a>
             </div>
-            <form class="navbar-form navbar-left">
-                <resource-select v-on:select="onSelect"></resource-select>
-            </form>
             <div class="collapse navbar-collapse" id="navbar-collapse">
+                <form class="navbar-form navbar-left">
+                    <resource-select v-on:select="onSelect"></resource-select>
+                </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Settings</a></li>
                 </ul>

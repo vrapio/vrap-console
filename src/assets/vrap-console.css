@@ -12,10 +12,6 @@
   outline: none;
 }
 
-.typeahead {
-  background-color: #fff;
-}
-
 .typeahead:focus {
   border: 2px solid #0097cf;
 }
@@ -69,4 +65,9 @@
 
 .gist {
   font-size: 14px;
+}
+
+#scrollable-dropdown-menu .tt-dropdown-menu {
+  max-height: 150px;
+  overflow-y: auto;
 }
