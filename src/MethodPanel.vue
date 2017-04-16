@@ -16,7 +16,7 @@
             <div v-if="response.status">
                 <h4><strong>Response</strong></h4>
                 <h5>Status <strong>{{response.status.code}}</strong> <small>{{response.status.text}}</small></h5>
-                <pre class="pre-scrollable">{{response.body}}</pre>
+                <pre v-highlightjs="response.body" class="pre-scrollable"><code></code></pre>
             </div>
         </div>
     </div>

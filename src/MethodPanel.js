@@ -1,5 +1,35 @@
 import TypeDeclarations from './TypeDeclarations.vue'
 import $ from 'jquery'
+import 'highlight.js/styles/default.css'
+import Vue from 'vue'
+import hljs from 'highlight.js'
+
+Vue.directive('highlightjs', {
+  deep: true,
+  bind: function(el, binding) {
+    hljs.configure({ languages: [ 'json' ]});
+    // on first bind, highlight all targets
+    let targets = el.querySelectorAll('code')
+    targets.forEach((target) => {
+      // if a value is directly assigned to the directive, use this
+      // instead of the element content.
+      if (binding.value) {
+        target.textContent = binding.value
+      }
+      hljs.highlightBlock(target)
+    })
+  },
+  componentUpdated: function(el, binding) {
+    // after an update, re-fill the content and then highlight
+    let targets = el.querySelectorAll('code')
+    targets.forEach((target) => {
+      if (binding.value) {
+        target.textContent = binding.value
+        hljs.highlightBlock(target)
+      }
+    })
+  }
+});
 
 export default {
     components: {
@@ -36,7 +66,7 @@ export default {
             $.ajax(uri, settings).always(this.updateResponse);
         },
         updateResponse: function (data, statusText, jqXHR) {
-            this.$set(this.response, 'body', data);
+            this.$set(this.response, 'body', JSON.stringify(data, null, 2));
             const status = {
                 code: jqXHR.status,
                 text: jqXHR.statusText
