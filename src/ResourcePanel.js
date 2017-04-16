@@ -2,33 +2,55 @@ export default {
     props:  [
         'resource'
     ],
+    data: function () {
+        return {
+            uriParams: {}
+        };
+    },
     computed: {
-        paths: function () {
-            const paths = [];
+        pathSegments: function () {
+            const pathSegments = [];
             if (this.resource.uri) {
                 const segments = this.resource.uri.split('/');
                 for (var i = 0; i < segments.length; i++) {
                     const path = segments[i];
                     if (path != '') {
-                        const editable = path.startsWith('{');
-                        if (editable) {
-                            if (paths.length > 0 && !paths[paths.length - 1].editable) {
-                                paths[paths.length - 1].path += '/';
+                        const uriParamRegexp = /\{(.*)\}/;
+                        const uriParam = uriParamRegexp[Symbol.match](path);
+                        if (uriParam) {
+                            if (pathSegments.length > 0 && !pathSegments[pathSegments.length - 1].editable) {
+                                pathSegments[pathSegments.length - 1].path += '/';
                             } else {
-                                paths.push({ path: '/', editable: false });
+                                pathSegments.push({ path: '/' });
                             }
-                            paths.push({ path: `${path}`, editable: editable });
+                            pathSegments.push({ path: `${path}`, uriParam: uriParam[1] });
                         } else {
-                            paths.push({ path: `/${path}`, editable: editable });
+                            pathSegments.push({ path: `/${path}`});
                         }
                     }
                 }
             }
-            return paths;
+            return pathSegments;
+        }
+    },
+    methods: {
+        updateUriParam: function (event) {
+            const uriParam = event.target.id;
+            this.$set(this.uriParams, uriParam, event.target.value);
+            this.$emit('change', this.computePath());
         },
-        path: function () {
-            const paths = this.paths;
-            return paths.join();
+        computePath: function () {
+            const pathSegments = this.pathSegments;
+            var path = '';
+            for (var i = 0; i < pathSegments.length; i++) {
+                const pathSegment = pathSegments[i];
+                if (pathSegment.uriParam && this.uriParams[pathSegment.uriParam]) {
+                    path += this.uriParams[pathSegment.uriParam];
+                } else {
+                    path += pathSegment.path;
+                }
+            }
+            return path;
         }
     }
 }

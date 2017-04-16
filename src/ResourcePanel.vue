@@ -5,9 +5,9 @@
         <div class="form-inline">
             <h5><strong>Path</strong></h5>
             <div class="form-group">
-                <div id="pathInput" class="input-group" v-for="path in paths">
-                    <div v-if="!path.editable" class="form-control" disabled>{{path.path}}</div>
-                    <input v-if="path.editable" class="form-control" type="text" :placeholder="path.path">
+                <div id="pathInput" class="input-group" v-for="pathSegment in pathSegments">
+                    <input v-if="pathSegment.uriParam" class="form-control" type="text" @change="updateUriParam" :id="pathSegment.uriParam" :placeholder="pathSegment.uriParam">
+                    <div v-else class="form-control" disabled>{{pathSegment.path}}</div>
                 </div>
             </div>
         </div>

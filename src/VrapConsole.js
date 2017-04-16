@@ -17,6 +17,10 @@ export default {
     methods: {
         onSelect: function (resource) {
             this.resource = resource;
+            this.path = resource.uri;
+        },
+        onPathChange: function (path) {
+            this.path = path;
         },
         /**
          * Returns a unique key for this resource and the given method.
