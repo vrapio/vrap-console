@@ -8,9 +8,9 @@
                                :typeDeclarations="method.queryParams"></type-declarations>
             <type-declarations title="Headers" @change="updateHeaders" v-model="headers"
                                :typeDeclarations="headerDeclarations"></type-declarations>
-
             <div class="btn-group" role="group">
-                <button type="button" @click="send" class="btn btn-success text-capitalize">{{method.method}}</button>
+                <button v-if="!loading" type="button" @click="send" class="btn btn-success btn-lg text-capitalize">{{method.method}}</button>
+                <button v-else class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
             </div>
             <p></p>
             <div v-if="response.status">

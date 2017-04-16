@@ -1,13 +1,15 @@
 import TypeDeclarations from './TypeDeclarations.vue'
 import $ from 'jquery'
-import 'highlight.js/styles/default.css'
+import 'highlight.js/styles/idea.css'
 import Vue from 'vue'
-import hljs from 'highlight.js'
+import json from 'highlight.js/lib/languages/json.js'
+import hljs from 'highlight.js/lib/highlight.js'
+
+hljs.registerLanguage('json', json);
 
 Vue.directive('highlightjs', {
   deep: true,
   bind: function(el, binding) {
-    hljs.configure({ languages: [ 'json' ]});
     // on first bind, highlight all targets
     let targets = el.querySelectorAll('code')
     targets.forEach((target) => {
@@ -46,7 +48,8 @@ export default {
           response: {
             status: undefined,
             body: undefined
-          }
+          },
+          loading: false
         };
     },
     methods: {
@@ -57,6 +60,7 @@ export default {
             this.$set(this.headers, value.name, value.value);
         },
         send: function () {
+            this.loading = true;
             const settings = {
                 method: this.method.method.toUpperCase(),
                 data: this.queryParams,
@@ -66,6 +70,7 @@ export default {
             $.ajax(uri, settings).always(this.updateResponse);
         },
         updateResponse: function (data, statusText, jqXHR) {
+            this.loading = false;
             this.$set(this.response, 'body', JSON.stringify(data, null, 2));
             const status = {
                 code: jqXHR.status,
