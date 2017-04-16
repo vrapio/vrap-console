@@ -6,7 +6,8 @@ export default {
         'type-declarations': TypeDeclarations
     },
     props:  [
-        'method'
+        'method',
+        'path'
     ],
     data: function () {
         return {
@@ -31,7 +32,8 @@ export default {
                 data: this.queryParams,
                 headers: this.headers
             };
-            $.ajax('api/all', settings).always(this.updateResponse);
+            const uri = `api/${this.path}`;
+            $.ajax(uri, settings).always(this.updateResponse);
         },
         updateResponse: function (data, statusText, jqXHR) {
             this.$set(this.response, 'body', data);

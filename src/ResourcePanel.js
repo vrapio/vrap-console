@@ -25,6 +25,10 @@ export default {
                 }
             }
             return paths;
+        },
+        path: function () {
+            const paths = this.paths;
+            return paths.join();
         }
     }
 }
