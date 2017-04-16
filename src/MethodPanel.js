@@ -67,11 +67,21 @@ export default {
                 headers: this.headers
             };
             const uri = `api/${this.path}`;
-            $.ajax(uri, settings).always(this.updateResponse);
+            $.ajax(uri, settings)
+                .always(() => this.loading = false)
+                .done(this.done)
+                .fail(this.fail);
         },
-        updateResponse: function (data, statusText, jqXHR) {
-            this.loading = false;
+        done: function (data, statusText, jqXHR) {
             this.$set(this.response, 'body', JSON.stringify(data, null, 2));
+            const status = {
+                code: jqXHR.status,
+                text: jqXHR.statusText
+            };
+            this.$set(this.response, 'status', status);
+        },
+        fail: function (jqXHR, textStatus, errorThrown) {
+            this.$set(this.response, 'body', JSON.stringify(jqXHR.responseJSON, null, 2));
             const status = {
                 code: jqXHR.status,
                 text: jqXHR.statusText
