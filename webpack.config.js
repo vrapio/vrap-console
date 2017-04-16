@@ -60,6 +60,10 @@ module.exports = {
         '/console': {
             target: 'http://localhost:5050',
             secure: false
+        },
+        '/api': {
+            target: 'http://localhost:5050',
+            secure: false
         }
     }
   },

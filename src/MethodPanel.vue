@@ -8,11 +8,17 @@
                                :typeDeclarations="method.queryParams"></type-declarations>
             <type-declarations title="Headers" @change="updateHeaders" v-model="headers"
                                :typeDeclarations="headerDeclarations"></type-declarations>
+
+            <div class="btn-group" role="group">
+                <button type="button" @click="send" class="btn btn-success text-capitalize">{{method.method}}</button>
+            </div>
+            <p></p>
+            <div v-if="response.status">
+                <h4><strong>Response</strong></h4>
+                <h5>Status <strong>{{response.status.code}}</strong> <small>{{response.status.text}}</small></h5>
+                <pre class="pre-scrollable">{{response.body}}</pre>
+            </div>
         </div>
-        <div class="panel-footer">
-            <button type="button" class="btn btn-success text-capitalize">{{method.method}}</button>
-        </div>
-        <h3>{{queryString}}</h3>
     </div>
 </template>
 <script src="./MethodPanel.js"></script>

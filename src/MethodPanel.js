@@ -1,4 +1,5 @@
 import TypeDeclarations from './TypeDeclarations.vue'
+import $ from 'jquery'
 
 export default {
     components: {
@@ -10,7 +11,11 @@ export default {
     data: function () {
         return {
           queryParams: {},
-          headers: {}
+          headers: {},
+          response: {
+            status: undefined,
+            body: undefined
+          }
         };
     },
     methods: {
@@ -19,6 +24,22 @@ export default {
         },
         updateHeaders: function (value) {
             this.$set(this.headers, value.name, value.value);
+        },
+        send: function () {
+            const settings = {
+                method: this.method.method.toUpperCase(),
+                data: this.queryParams,
+                headers: this.headers
+            };
+            $.ajax('api/all', settings).always(this.updateResponse);
+        },
+        updateResponse: function (data, statusText, jqXHR) {
+            this.$set(this.response, 'body', data);
+            const status = {
+                code: jqXHR.status,
+                text: jqXHR.statusText
+            };
+            this.$set(this.response, 'status', status);
         }
     },
     computed: {
