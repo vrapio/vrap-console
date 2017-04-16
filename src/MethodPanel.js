@@ -15,16 +15,17 @@ export default {
     },
     methods: {
         updateQueryParams: function (value) {
-            const q = this.queryParams;
             this.$set(this.queryParams, value.name, value.value);
-            this.$emit('change', this.queryParams);
+        },
+        updateHeaders: function (value) {
+            this.$set(this.headers, value.name, value.value);
         }
     },
     computed: {
         headerDeclarations: function () {
             return {
-                'Accept': { type: { type: 'enum', values: [ 'application/json', 'application/xml'] } },
-                'X-Vrap-Mode': { type: { type: 'enum', values: [ 'proxy', 'example'] } }
+                'Accept': { name: 'Accept', type: { type: 'enum', values: [ 'application/json', 'application/xml'] } },
+                'X-Vrap-Mode': { name: 'X-Vrap-Mode', type: { type: 'enum', values: [ 'proxy', 'example'] } }
             };
         },
         queryString: function () {

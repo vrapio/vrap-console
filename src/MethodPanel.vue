@@ -6,7 +6,7 @@
         <div class="panel-body">
             <type-declarations title="Query Parameters" @change="updateQueryParams" v-model="queryParams"
                                :typeDeclarations="method.queryParams"></type-declarations>
-            <type-declarations title="Headers" v-model="headers"
+            <type-declarations title="Headers" @change="updateHeaders" v-model="headers"
                                :typeDeclarations="headerDeclarations"></type-declarations>
         </div>
         <div class="panel-footer">
