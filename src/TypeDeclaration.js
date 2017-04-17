@@ -5,7 +5,8 @@ export default {
         'type-input': TypeInput
     },
     props:  [
-        'typeDeclaration'
+        'typeDeclaration',
+        'type'
     ],
     data: function () {
         return {

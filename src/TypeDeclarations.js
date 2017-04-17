@@ -9,6 +9,7 @@ export default {
     props:  [
         'typeDeclarations',
         'title',
+        'type'
     ],
     data: function () {
         return {
