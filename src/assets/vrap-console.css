@@ -1,5 +1,10 @@
 .vrap-mode {
-    padding: 16px;
+    padding-left: 16px;
+}
+
+.type-input-label {
+    padding-right: 16px;
+    padding-left: 8px;
 }
 
 .tt-query,

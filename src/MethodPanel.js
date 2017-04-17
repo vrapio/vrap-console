@@ -70,6 +70,8 @@ export default {
         },
         send: function () {
             this.loading = true;
+            this.response.body = '';
+            this.response.status = {};
             const settings = {
                 method: this.method.method.toUpperCase(),
                 data: this.queryParams,
@@ -82,20 +84,20 @@ export default {
                 .fail(this.fail);
         },
         done: function (data, statusText, jqXHR) {
-            this.$set(this.response, 'body', JSON.stringify(data, null, 2));
+            this.response.body = JSON.stringify(data, null, 2);
             const status = {
                 code: jqXHR.status,
                 text: jqXHR.statusText
             };
-            this.$set(this.response, 'status', status);
+            this.response.status = status;
         },
         fail: function (jqXHR, textStatus, errorThrown) {
-            this.$set(this.response, 'body', JSON.stringify(jqXHR.responseJSON, null, 2));
+            this.response.body = JSON.stringify(jqXHR.responseJSON, null, 2);
             const status = {
                 code: jqXHR.status,
                 text: jqXHR.statusText
             };
-            this.$set(this.response, 'status', status);
+            this.response.status = status;
         }
     },
     computed: {

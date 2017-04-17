@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 export default {
     props:  [
         'typeDeclaration',
@@ -7,10 +9,19 @@ export default {
     data: function () {
         return { value: '' };
     },
+    mounted() {
+        let targets = $(this.$el).find("div[data-toggle='buttons']")
+        targets.on('change', this.updateValue);
+    },
     methods: {
         updateValue: function (event) {
             const name = this.typeDeclaration.name;
-            this.$emit('change', { name: name, value: this.value })
+            const target = event.target;
+            const newValue = {
+                 name: name,
+                 value: target.value
+            };
+            this.$emit('change', newValue);
         },
         copyExample: function () {
             this.value = this.typeDeclaration.example;
