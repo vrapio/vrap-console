@@ -1,14 +1,11 @@
 import TypeInput from './TypeInput.vue'
-import TypeDeclaration from './TypeDeclaration.vue'
 
 export default {
     components: {
-        'type-input': TypeInput,
-        'type-declaration': TypeDeclaration
+        'type-input': TypeInput
     },
     props:  [
-        'typeDeclarations',
-        'title',
+        'typeDeclaration'
     ],
     data: function () {
         return {
@@ -17,7 +14,7 @@ export default {
     },
     methods: {
         updateValues: function (value) {
-            this.$set(this.value, value.name, value.value);
+            this.value = value.value;
             this.$emit('change', value);
         },
         label: (typeDeclaration) => typeDeclaration.label ? typeDeclaration.label : typeDeclaration.name

@@ -1,3 +1,4 @@
+import TypeDeclaration from './TypeDeclaration.vue'
 import TypeDeclarations from './TypeDeclarations.vue'
 import $ from 'jquery'
 import 'highlight.js/styles/idea.css'
@@ -35,16 +36,24 @@ Vue.directive('highlightjs', {
 
 export default {
     components: {
-        'type-declarations': TypeDeclarations
+        'type-declarations': TypeDeclarations,
+        'type-declaration': TypeDeclaration
     },
     props:  [
         'method',
         'path'
     ],
     data: function () {
+        const headers = {};
+        for (let hedaderDecl in this.headerDeclarations) {
+            headers[hedaderDecl.name] = '';
+        }
+        for (let hedaderDecl in this.vrapHeaderDeclarations) {
+            headers[hedaderDecl.name] = '';
+        }
         return {
           queryParams: {},
-          headers: {},
+          headers: headers,
           response: {
             status: undefined,
             body: undefined
@@ -90,11 +99,39 @@ export default {
         }
     },
     computed: {
-        headerDeclarations: function () {
-            return {
-                'Accept': { name: 'Accept', type: { type: 'enum', values: [ 'application/json', 'application/xml'] } },
-                'X-Vrap-Mode': { name: 'X-Vrap-Mode', type: { type: 'enum', values: [ 'proxy', 'example'] } }
+        vrapHeaderDeclarations: function () {
+            const vrapModeType = {
+                type: 'enum',
+                values: [ 'proxy', 'example' ]
             };
+            const headerDeclarations = {
+                vrapMode: {
+                    label: 'Vrap Mode',
+                    name: 'X-Vrap-Mode',
+                    type: vrapModeType
+                 }
+            };
+            return headerDeclarations;
+        },
+        headerDeclarations: function () {
+            const mediaType = {
+                type: 'enum',
+                values: [ 'application/json', 'application/xml' ]
+            };
+            const headerDeclarations = {
+                accept: {
+                    name: 'Accept',
+                    type: mediaType
+                }
+            };
+            if (this.method.method === 'post') {
+                headerDeclarations.contentType = {
+                    label: 'Content Type',
+                    name: 'Content-Type',
+                    type: mediaType
+                };
+            }
+            return headerDeclarations;
         },
         queryString: function () {
             var query = '';

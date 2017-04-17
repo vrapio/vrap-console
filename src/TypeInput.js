@@ -1,7 +1,8 @@
 
 export default {
     props:  [
-        'typeDeclaration'
+        'typeDeclaration',
+        'label'
     ],
     data: function () {
         return { value: '' };
