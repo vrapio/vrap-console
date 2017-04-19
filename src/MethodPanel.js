@@ -1,5 +1,6 @@
 import TypeDeclaration from './TypeDeclaration.vue'
 import TypeDeclarations from './TypeDeclarations.vue'
+import Authorization from './Authorization.vue'
 import $ from 'jquery'
 import 'highlight.js/styles/idea.css'
 import Vue from 'vue'
@@ -36,12 +37,14 @@ Vue.directive('highlightjs', {
 
 export default {
     components: {
+        'authorization': Authorization,
         'type-declarations': TypeDeclarations,
         'type-declaration': TypeDeclaration
     },
     props:  [
         'method',
-        'path'
+        'path',
+        'uriParams'
     ],
     data: function () {
         const headers = {};
@@ -69,19 +72,21 @@ export default {
             this.$set(this.headers, value.name, value.value);
         },
         send: function () {
-            this.loading = true;
-            this.response.body = '';
-            this.response.status = {};
             const settings = {
                 method: this.method.method.toUpperCase(),
                 data: this.queryParams,
-                headers: this.headers
+                headers: this.headers,
+                beforeSend: () => this.loading = true
             };
+            this.response.body = '';
+            this.response.status = {};
             const uri = `api${this.path}`;
-            $.ajax(uri, settings)
-                .always(() => this.loading = false)
+            const callback = () => $.ajax(uri, settings)
                 .done(this.done)
-                .fail(this.fail);
+                .fail(this.fail)
+                .always(() => this.loading = false);
+
+            this.$refs.authorization.authorize(settings.headers, callback);
         },
         done: function (data, statusText, jqXHR) {
             this.response.body = JSON.stringify(data, null, 2);

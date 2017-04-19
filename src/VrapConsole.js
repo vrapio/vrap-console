@@ -11,16 +11,18 @@ export default {
     data: function() {
         return {
             resource: {},
-            path: ''
+            path: '',
+            uriParams: {}
         };
     },
     methods: {
         onSelect: function (resource) {
             this.resource = resource;
-            this.path = resource.uri;
+            this.uriParams = resource.uriParams;
         },
-        onPathChange: function (path) {
-            this.path = path;
+        onPathChange: function (model) {
+            this.path = model.path;
+            this.uriParams = model.uriParams;
         },
         /**
          * Returns a unique key for this resource and the given method.

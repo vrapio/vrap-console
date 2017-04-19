@@ -31,15 +31,8 @@ export default {
                 }
             }
             return pathSegments;
-        }
-    },
-    methods: {
-        updateUriParam: function (event) {
-            const uriParam = event.target.id;
-            this.$set(this.uriParams, uriParam, event.target.value);
-            this.$emit('change', this.computePath());
         },
-        computePath: function () {
+        path: function () {
             const pathSegments = this.pathSegments;
             var path = '';
             for (var i = 0; i < pathSegments.length; i++) {
@@ -51,6 +44,17 @@ export default {
                 }
             }
             return path;
+        }
+    },
+    methods: {
+        updateUriParam: function (event) {
+            const uriParam = event.target.id;
+            this.$set(this.uriParams, uriParam, event.target.value);
+            const model = {
+                path: this.path,
+                uriParams: this.uriParams
+            };
+            this.$emit('change', model);
         }
     }
 }
