@@ -76,10 +76,8 @@ export default {
                 method: this.method.method.toUpperCase(),
                 data: this.queryParams,
                 headers: this.headers,
-                beforeSend: () => this.loading = true
+                beforeSend: this.beforeSend
             };
-            this.response.body = '';
-            this.response.status = {};
             const uri = `api${this.path}`;
             const callback = () => $.ajax(uri, settings)
                 .done(this.done)
@@ -87,6 +85,11 @@ export default {
                 .always(() => this.loading = false);
 
             this.$refs.authorization.authorize(settings.headers, callback);
+        },
+        beforeSend: function () {
+            this.loading = true;
+            this.response.body = '';
+            this.response.status = {};
         },
         done: function (data, statusText, jqXHR) {
             this.response.body = JSON.stringify(data, null, 2);
