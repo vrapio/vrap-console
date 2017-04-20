@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <div v-if="failure">{{failure}}</div>
                     <button type="button" class="btn btn-primary" @click="requestToken">Request Token</button>
                 </div>
             </div>

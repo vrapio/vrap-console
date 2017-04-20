@@ -72,19 +72,19 @@ export default {
             this.$set(this.headers, value.name, value.value);
         },
         send: function () {
-            const settings = {
+            const request = {
                 method: this.method.method.toUpperCase(),
                 data: this.queryParams,
                 headers: this.headers,
                 beforeSend: this.beforeSend
             };
             const uri = `api${this.path}`;
-            const callback = () => $.ajax(uri, settings)
+            const callback = () => $.ajax(uri, request)
                 .done(this.done)
                 .fail(this.fail)
                 .always(() => this.loading = false);
 
-            this.$refs.authorization.authorize(settings.headers, callback);
+            this.$refs.authorization.authorize(request).then(callback);
         },
         beforeSend: function () {
             this.loading = true;

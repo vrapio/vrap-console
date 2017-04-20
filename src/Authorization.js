@@ -2,10 +2,12 @@ import ClientOAuth2 from 'client-oauth2'
 import $ from 'jquery'
 
 const storage = {
-    accessToken: '',
+    token: {},
     clientId: '',
     clientSecret: '',
-    authorizationUri: ''
+    authorizationUri: '',
+    failure: undefined,
+    callback: undefined
 };
 
 export default {
@@ -15,27 +17,32 @@ export default {
     data: function () {
         return storage;
     },
+    mounted: function () {
+    },
     methods: {
-        authorize: function (headers, callback) {
-            if (!this.accessToken) {
-                this.callback = () => this.forward(callback, headers);
-                this.openAuthorizationDialog();
-            } else {
-                this.forward(callback, headers);
-            }
+        authorize: function (request) {
+            const promise = new Promise((resolve, reject) => {
+                this.resolve = resolve;
+                this.request = request;
+                if (this.token.accessToken) {
+                    this.forwardSignedRequest();
+                } else {
+                    this.openAuthorizationDialog();
+                }
+            });
+
+            return promise;
         },
         openAuthorizationDialog: function () {
             $(this.$el).modal();
         },
-        forward: function (callback, headers) {
-            if (this.accessToken) {
-                headers['Authorization'] = `Bearer ${this.accessToken}`;
-                callback();
+        forwardSignedRequest: function (token) {
+            if (token) {
+                this.token = token;
             }
+            this.resolve(this.token.sign(this.request));
         },
         requestToken: function () {
-            $(this.$el).modal('hide');
-
             const manageProjectScope = `manage_project:${this.uriParams.projectKey}`;
             const authClient = new ClientOAuth2({
                 clientId: this.clientId,
@@ -44,7 +51,9 @@ export default {
                 scopes: [ manageProjectScope ]
             });
 
-            authClient.credentials.getToken().then((user) => this.accessToken = user.accessToken).then(this.callback);
+            $(this.$el).modal('hide');
+
+            authClient.credentials.getToken().then(this.forwardSignedRequest);
         }
     }
 }
