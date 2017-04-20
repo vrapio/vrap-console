@@ -10,22 +10,16 @@
                 <div class="modal-body">
                     <div class="form">
                         <div class="form-group">
-                            <label for="authorizationUri" class="col-md-6 control-label">Authorization Uri</label>
-                            <div class="col-md-6">
-                                <input v-model="authorizationUri" type="url" class="form-control" id="authorizationUri" required>
-                            </div>
+                            <label for="authorizationUri" class="control-label">Authorization Uri</label>
+                            <input v-model="authorizationUri" type="url" class="form-control" id="authorizationUri" required>
                         </div>
                         <div class="form-group">
-                            <label for="clientId" class="col-md-6 control-label">Client Id</label>
-                            <div class="col-md-6">
-                                <input v-model="clientId" type="text" class="form-control" id="clientId" required>
-                            </div>
+                            <label for="clientId" class="control-label">Client Id</label>
+                            <input v-model="clientId" type="text" class="form-control" id="clientId" required>
                         </div>
                         <div class="form-group">
-                            <label for="clientSecret" class="col-md-6 control-label">Client Secret</label>
-                            <div class="col-md-6">
-                                <input v-model="clientSecret" type="password" class="form-control" id="clientSecret" required>
-                            </div>
+                            <label for="clientSecret" class="control-label">Client Secret</label>
+                            <input v-model="clientSecret" type="password" class="form-control" id="clientSecret" required>
                         </div>
                     </div>
                 </div>

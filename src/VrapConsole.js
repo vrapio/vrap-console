@@ -1,9 +1,11 @@
+import Authorization from './Authorization.vue'
 import ResourcePanel from './ResourcePanel.vue'
 import Navbar from './Navbar.vue'
 import MethodPanel from './MethodPanel.vue'
 
 export default {
     components: {
+        'authorization': Authorization,
         'navbar': Navbar,
         'resource-panel': ResourcePanel,
         'method-panel': MethodPanel
@@ -16,6 +18,9 @@ export default {
         };
     },
     methods: {
+        authorize: function (request) {
+            this.$refs.authorization.authorize(request);
+        },
         onSelect: function (resource) {
             this.resource = resource;
             this.uriParams = resource.uriParams;

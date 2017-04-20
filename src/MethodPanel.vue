@@ -16,7 +16,6 @@
                 <button v-else class="btn btn-warning">
                     <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"> Loading...</span>
                 </button>
-                <authorization :uriParams="uriParams" ref="authorization"></authorization>
                 <type-declaration type="radio" @change="updateHeaders" class="vrap-mode" :typeDeclaration="vrapHeaderDeclarations.vrapMode" v-model="headers.vrapMode"></type-declaration>
             </div>
             <p></p>

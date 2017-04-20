@@ -1,6 +1,5 @@
 import TypeDeclaration from './TypeDeclaration.vue'
 import TypeDeclarations from './TypeDeclarations.vue'
-import Authorization from './Authorization.vue'
 import $ from 'jquery'
 import 'highlight.js/styles/idea.css'
 import Vue from 'vue'
@@ -37,14 +36,14 @@ Vue.directive('highlightjs', {
 
 export default {
     components: {
-        'authorization': Authorization,
         'type-declarations': TypeDeclarations,
         'type-declaration': TypeDeclaration
     },
     props:  [
         'method',
         'path',
-        'uriParams'
+        'uriParams',
+        'authorize'
     ],
     data: function () {
         const headers = {};
@@ -84,7 +83,7 @@ export default {
                 .fail(this.fail)
                 .always(() => this.loading = false);
 
-            this.$refs.authorization.authorize(request).then(callback);
+            this.authorize(request).then(callback);
         },
         beforeSend: function () {
             this.loading = true;
