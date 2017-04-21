@@ -5,8 +5,10 @@
         <div class="container">
             <resource-panel @change="onPathChange" v-model="uriParams" :resource="resource" :key="resource.uri" ></resource-panel>
             <p></p>
-            <method-panel v-for="method in resource.methods" :authorize="authorize"
+            <div class="panel-group" id="method-panels" role="tablist" aria-multiselectable="true">
+                <method-panel v-for="method in resource.methods" :authorize="authorize"
                           :uriParams="uriParams" :method="method" :key="methodKey(method)" :path="path"></method-panel>
+            </div>
         </div>
     </div>
 </template>

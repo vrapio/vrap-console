@@ -151,6 +151,15 @@ export default {
                 delim = '&';
             });
             return query;
+        },
+        headingId: function () {
+            return `${this.method.method}-heading`
+        },
+        bodyId: function () {
+            return `${this.method.method}-body`
+        },
+        bodyHref: function() {
+            return `#${this.method.method}-body`
         }
     }
 }
