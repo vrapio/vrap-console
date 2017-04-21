@@ -11,15 +11,16 @@ export default {
         'method-panel': MethodPanel
     },
     data: function() {
-        return {
+        const data = {
             resource: {},
             path: '',
             uriParams: {}
         };
+        return data;
     },
     methods: {
         authorize: function (request) {
-            this.$refs.authorization.authorize(request);
+            return this.$refs.authorization.authorize(request);
         },
         onSelect: function (resource) {
             this.resource = resource;
