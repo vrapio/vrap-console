@@ -1,6 +1,6 @@
 <template>
     <div id="vrap-console">
-        <navbar class="container-fluid " v-on:select="onSelect" :baseUri="baseUri" :vrapMode="vrapMode" :resource="resource"></navbar>
+        <navbar class="container-fluid " :baseUri="baseUri" :vrapMode="vrapMode" @select="onResourceSelect"></navbar>
         <authorization :uriParams="uriParams" ref="authorization"></authorization>
         <div class="container">
             <h2>{{title}}</h2>

@@ -38,17 +38,14 @@ export default {
             this.authorizationUri = api.authorizationUri;
             this.vrapMode = api.vrapMode;
         },
-        onSelect: function (searchResult) {
-            $.get(searchResult.link).then(this.resourceReceived);
-        },
-        resourceReceived: function (resource) {
-            this.resource = resource;
-            this.uriParams = resource.uriParams;
-            this.path = resource.uri;
-        },
         onPathChange: function (model) {
             this.path = model.path;
             this.uriParams = model.uriParams;
+        },
+        onResourceSelect: function (resource) {
+            this.resource = resource;
+            this.path = resource.uri;
+            this.uriParams = resource.uriParams;
         },
         /**
          * Returns a unique key for this resource and the given method.

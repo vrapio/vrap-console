@@ -3,6 +3,12 @@ import Bloodhound from 'typeahead'
 import './assets/vrap-console.css'
 
 export default {
+    data: function () {
+        const data = {
+            resource: {}
+        };
+        return data;
+    },
     mounted: function () {
         const resources = new Bloodhound({
           datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -24,6 +30,15 @@ export default {
           display: 'label',
           source: resources
         });
-        resourcesTypeahead.on('typeahead:select', (ev, searchResults) => this.$emit('select', searchResults));
+        resourcesTypeahead.on('typeahead:select', (ev, searchResult) => this.onSelect(searchResult));
+    },
+    methods: {
+        onSelect: function (searchResult) {
+            $.get(searchResult.link).then(this.resourceReceived);
+        },
+        resourceReceived: function (resource) {
+            this.resource = resource;
+            this.$emit('select', resource);
+        }
     }
 }
