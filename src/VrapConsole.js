@@ -44,6 +44,7 @@ export default {
         resourceReceived: function (resource) {
             this.resource = resource;
             this.uriParams = resource.uriParams;
+            this.path = resource.uri;
         },
         onPathChange: function (model) {
             this.path = model.path;
