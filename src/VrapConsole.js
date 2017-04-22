@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 import Authorization from './Authorization.vue'
 import ResourcePanel from './ResourcePanel.vue'
 import Navbar from './Navbar.vue'
@@ -14,15 +16,32 @@ export default {
         const data = {
             resource: {},
             path: '',
-            uriParams: {}
+            uriParams: {},
+            baseUri: '',
+            title: '',
+            description: '',
+            vrapMode: ''
         };
         return data;
     },
+    mounted: function () {
+        $.get('reflection').then(this.apiReceived);
+    },
     methods: {
         authorize: function (request) {
-            return this.$refs.authorization.authorize(request);
+            return this.authorizationUri ? this.$refs.authorization.authorize(request) : Promise.resolve(request);
         },
-        onSelect: function (resource) {
+        apiReceived: function (api) {
+            this.title = api.title;
+            this.description = api.description;
+            this.baseUri = api.baseUri;
+            this.authorizationUri = api.authorizationUri;
+            this.vrapMode = api.vrapMode;
+        },
+        onSelect: function (searchResult) {
+            $.get(searchResult.link).then(this.resourceReceived);
+        },
+        resourceReceived: function (resource) {
             this.resource = resource;
             this.uriParams = resource.uriParams;
         },

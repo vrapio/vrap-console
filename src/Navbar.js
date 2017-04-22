@@ -2,7 +2,9 @@ import ResourceSelect from './ResourceSelect.vue'
 
 export default {
     props:  [
-        'resource'
+        'resource',
+        'baseUri',
+        'vrapMode'
     ],
     components: {
         'resource-select': ResourceSelect

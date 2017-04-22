@@ -8,7 +8,7 @@ export default {
           datumTokenizer: Bloodhound.tokenizers.whitespace,
           queryTokenizer: Bloodhound.tokenizers.whitespace,
           remote: {
-            url: '/console/suggestions?query=%QUERY',
+            url: '/reflection/search?query=%QUERY',
             wildcard: '%QUERY'
           },
           limit: 10,
@@ -24,6 +24,6 @@ export default {
           display: 'label',
           source: resources
         });
-        resourcesTypeahead.on('typeahead:select', (ev, resource) => this.$emit('select', resource));
+        resourcesTypeahead.on('typeahead:select', (ev, searchResults) => this.$emit('select', searchResults));
     }
 }

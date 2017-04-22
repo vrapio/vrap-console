@@ -76,6 +76,8 @@
   font-size: 14px;
 }
 
+body { padding-top: 70px; }
+
 #scrollable-dropdown-menu .tt-dropdown-menu {
   max-height: 150px;
   overflow-y: auto;
