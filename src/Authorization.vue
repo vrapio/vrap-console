@@ -22,9 +22,9 @@
                             <input v-model="clientSecret" type="password" class="form-control" id="clientSecret" required>
                         </div>
                     </div>
+                    <div v-if="failure" class="alert alert-danger" role="alert">{{failure}}</div>
                 </div>
                 <div class="modal-footer">
-                    <div v-if="failure">{{failure}}</div>
                     <button type="button" class="btn btn-primary" @click="requestToken">Request Token</button>
                 </div>
             </div>

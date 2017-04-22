@@ -17,8 +17,6 @@ export default {
     data: function () {
         return storage;
     },
-    mounted: function () {
-    },
     methods: {
         authorize: function (request) {
             const promise = new Promise((resolve, reject) => {
@@ -37,10 +35,15 @@ export default {
             $(this.$el).modal();
         },
         forwardSignedRequest: function (token) {
+            $(this.$el).modal('hide');
+
             if (token) {
                 this.token = token;
             }
             this.resolve(this.token.sign(this.request));
+        },
+        showError: function (error) {
+            this.failure = error.message;
         },
         requestToken: function () {
             const manageProjectScope = `manage_project:${this.uriParams.projectKey}`;
@@ -51,9 +54,7 @@ export default {
                 scopes: [ manageProjectScope ]
             });
 
-            $(this.$el).modal('hide');
-
-            authClient.credentials.getToken().then(this.forwardSignedRequest);
+            authClient.credentials.getToken().then(this.forwardSignedRequest, this.showError);
         }
     }
 }
