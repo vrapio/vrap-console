@@ -3,6 +3,9 @@ import Bloodhound from 'typeahead'
 import './assets/vrap-console.css'
 
 export default {
+    props: [
+        'baseUri'
+    ],
     data: function () {
         const data = {
             resource: {}
@@ -19,26 +22,56 @@ export default {
           },
           limit: 10,
         });
-        const resourcesTypeahead = $('.typeahead');
+        this.resourcesTypeahead = $('.typeahead');
         const options = {
             hint: true,
             highlight: true,
             minLength: 1
         };
-        resourcesTypeahead.typeahead(options, {
+        this.resourcesTypeahead.typeahead(options, {
           name: 'resources',
           display: 'label',
           source: resources
         });
-        resourcesTypeahead.on('typeahead:select', (ev, searchResult) => this.onSelect(searchResult));
+        this.resourcesTypeahead.on('typeahead:select', (ev, searchResult) => this.onSelect(searchResult));
     },
     methods: {
         onSelect: function (searchResult) {
+            this.resourcesTypeahead.typeahead('val', '');
             $.get(searchResult.link).then(this.resourceReceived);
         },
         resourceReceived: function (resource) {
             this.resource = resource;
             this.$emit('select', resource);
+        },
+        onClick: function (link) {
+             $.get(link).then(this.resourceReceived);
+        }
+    },
+    computed: {
+        ancestorPaths: function () {
+            const baseUriPath = {
+                label: this.baseUri,
+                active: 'active'
+            };
+
+            const ancestorPaths = [ baseUriPath ];
+            if (this.resource.uri) {
+                const segments = this.resource.uri.split('/');
+                let uri = '';
+                for (var i = 0; i < segments.length; i++) {
+                    const path = segments[i];
+                    if (path != '') {
+                        uri += `/${path}`;
+                        const active = i == segments.length - 1 ? 'active': undefined;
+                        ancestorPaths.push({label: `/${path}`, uri: `/reflection/resources?uri=${uri}`, active: active});
+                    }
+                }
+                if (segments.length > 0) {
+                    baseUriPath.active = undefined;
+                }
+            }
+            return ancestorPaths;
         }
     }
 }

@@ -5,17 +5,14 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#navbar-collapse" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
                 </button>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
                 <a class="navbar-brand" href="http://vrap.io">vrap.io</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
-                <p class="navbar-text navbar-left">{{baseUri}}</p>
-                <form class="navbar-form navbar-left">
-                    <resource-select v-on:select="onSelect"></resource-select>
-                </form>
+                <resource-select v-on:select="onSelect" :baseUri="baseUri"></resource-select>
                 <p class="navbar-text navbar-right"><span class="label label-primary text-capitalize">{{vrapMode}}</span></p>
             </div>
         </div>
