@@ -4,13 +4,15 @@ import Authorization from './Authorization.vue'
 import ResourcePanel from './ResourcePanel.vue'
 import Navbar from './Navbar.vue'
 import MethodPanel from './MethodPanel.vue'
+import TypeDeclarationDiagram from './TypeDeclarationDiagram.vue'
 
 export default {
     components: {
         'authorization': Authorization,
         'navbar': Navbar,
         'resource-panel': ResourcePanel,
-        'method-panel': MethodPanel
+        'method-panel': MethodPanel,
+        'type-declaration-diagram': TypeDeclarationDiagram
     },
     data: function() {
         const data = {

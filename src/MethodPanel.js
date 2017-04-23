@@ -1,10 +1,12 @@
-import TypeDeclaration from './TypeDeclaration.vue'
-import TypeDeclarations from './TypeDeclarations.vue'
 import $ from 'jquery'
 import 'highlight.js/styles/idea.css'
-import Vue from 'vue'
 import json from 'highlight.js/lib/languages/json.js'
 import hljs from 'highlight.js/lib/highlight.js'
+
+import Vue from 'vue'
+
+import TypeDeclaration from './TypeDeclaration.vue'
+import TypeDeclarations from './TypeDeclarations.vue'
 
 hljs.registerLanguage('json', json);
 
