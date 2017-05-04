@@ -18,7 +18,8 @@ export default {
           queryTokenizer: Bloodhound.tokenizers.whitespace,
           remote: {
             url: '/reflection/search?query=%QUERY',
-            wildcard: '%QUERY'
+            wildcard: '%QUERY',
+            prepare: this.prepare
           },
           limit: 10,
         });
@@ -36,6 +37,14 @@ export default {
         this.resourcesTypeahead.on('typeahead:select', (ev, searchResult) => this.onSelect(searchResult));
     },
     methods: {
+        prepare: function (query, settings) {
+            const url = this.resource.uri ?
+                `/reflection/search?path=${this.resource.uri}&query=${query}` :
+                `/reflection/search?query=${query}`;
+            settings.url = url;
+
+            return settings;
+        },
         onSelect: function (searchResult) {
             this.resourcesTypeahead.typeahead('val', '');
             $.get(searchResult.link).then(this.resourceReceived);
