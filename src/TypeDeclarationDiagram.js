@@ -1,4 +1,5 @@
 import Viz from 'viz.js'
+import svgPanZoom from 'svg-pan-zoom'
 import $ from 'jquery'
 
 export default {
@@ -17,6 +18,17 @@ export default {
             dataType: 'text'
         };
         $.get(settings).then(this.renderDiagram);
+    },
+    updated: function () {
+        const svgElement = this.$el.querySelector('svg');
+        const settings = {
+            zoomEnabled: true,
+            controlIconsEnabled: true,
+            fit: true,
+            center: true
+        };
+
+        svgPanZoom(svgElement, settings);
     },
     methods: {
         renderDiagram: function (dotSrc) {
